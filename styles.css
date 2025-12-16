@@ -250,15 +250,19 @@ h3 {
 }
 
 /* Colores de Tipos */
-.badge.grass { background-color: #9bcc50; }
-.badge.poison { background-color: #b97fc9; }
-.badge.fire { background-color: #fd7d24; }
-.badge.ice { background-color: #51c4e7; }
-.badge.flying { 
+.badge.planta { background-color: #9bcc50; }
+.badge.veneno { background-color: #b97fc9; }
+.badge.fuego { background-color: #fd7d24; }
+.badge.hielo { background-color: #51c4e7; }
+.badge.tierra { background-color: #724015; }
+.badge.roca { background-color: #9a9a9a; }
+.badge.agua { background-color: #2e4fbc; }
+
+.badge.volador { 
     background: linear-gradient(180deg, #3dc7ef 50%, #bdb9b8 50%); 
     /* El tipo volador suele tener dos colores, o se puede usar un gris/azul sólido */
 }
-.badge.psychic { background-color: #f366b9; }
+.badge.psiquico { background-color: #f366b9; }
 
 /* Responsive para móvil */
 @media (max-width: 768px) {
