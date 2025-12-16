@@ -1,0 +1,268 @@
+/* RESET Y GENERAL */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+    color: #212121;
+}
+
+.pokedex-container {
+    display: flex;
+    max-width: 900px;
+    width: 100%;
+    gap: 20px;
+    background: url('https://assets.pokemon.com/static2/_ui/img/chrome/container_bg.png'); /* Opcional: Textura de fondo sutil */
+}
+
+/* --- COLUMNA IZQUIERDA --- */
+.left-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.pokemon-image-wrapper {
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.pokemon-img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* GRÁFICA DE PUNTOS DE BASE (STATS) */
+.stats-card {
+    background-color: #a4a4a4;
+    border-radius: 10px;
+    padding: 15px;
+    color: #313131;
+}
+
+.stats-card h3 {
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.chart-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 160px; /* Altura de la gráfica */
+}
+
+.stat-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 14%;
+}
+
+.bar-track {
+    width: 100%;
+    height: 120px; /* Altura de las barras */
+    background-color: white;
+    position: relative;
+    /* Esto crea el efecto de líneas horizontales blancas sobre el fondo */
+    background: repeating-linear-gradient(
+        to top,
+        transparent,
+        transparent 6px,
+        transparent 8px 
+    ), white;
+}
+
+/* La barra azul rellena */
+.bar-fill {
+    background-color: #30a7d7;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+/* La rejilla superpuesta para cortar la barra azul */
+.bar-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        to top,
+        rgba(255, 255, 255, 0) 0px,
+        rgba(255, 255, 255, 0) 6px,
+        #a4a4a4 6px, /* Color de las líneas de separación */
+        #a4a4a4 8px
+    );
+    z-index: 2;
+}
+
+.stat-col .label {
+    margin-top: 8px;
+    font-size: 10px;
+    text-align: center;
+    font-weight: bold;
+    color: #313131;
+}
+
+
+/* --- COLUMNA DERECHA --- */
+.right-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.description {
+    font-size: 18px;
+    line-height: 1.4;
+    color: #212121;
+}
+
+/* Versiones (Pokeballs) */
+.versions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.version-label {
+    font-size: 16px;
+}
+
+.icon {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 4px solid;
+    position: relative;
+}
+
+.icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: currentColor;
+    transform: translateY(-50%);
+}
+
+.icon.blue { border-color: #30a7d7; color: #30a7d7; background: white; }
+.icon.red { border-color: #e3350d; color: #e3350d; background: white; }
+
+/* Caja Azul de Información */
+.info-box {
+    background-color: #30a7d7;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    color: white;
+}
+
+.info-row {
+    display: flex;
+    width: 100%;
+    margin-bottom: 20px;
+}
+.info-row:last-child { margin-bottom: 0; }
+
+.info-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.info-label {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.info-value {
+    font-size: 20px;
+    color: #212121; /* Texto negro sobre fondo azul */
+}
+
+/* Iconos de Sexo */
+.sex-icons {
+    font-size: 20px;
+}
+.male { color: #212121; margin-right: 10px; }
+.female { color: #212121; }
+
+.question {
+    display: inline-block;
+    background: white;
+    color: #30a7d7;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 18px;
+    vertical-align: middle;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+/* Tipos y Debilidades */
+h3 {
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: normal;
+    color: #212121;
+}
+
+.badges {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.badge {
+    padding: 4px 15px; /* Más ancho */
+    border-radius: 4px;
+    color: white;
+    font-size: 13px;
+    min-width: 100px;
+    text-align: center;
+}
+
+/* Colores de Tipos */
+.badge.grass { background-color: #9bcc50; }
+.badge.poison { background-color: #b97fc9; }
+.badge.fire { background-color: #fd7d24; }
+.badge.ice { background-color: #51c4e7; }
+.badge.flying { 
+    background: linear-gradient(180deg, #3dc7ef 50%, #bdb9b8 50%); 
+    /* El tipo volador suele tener dos colores, o se puede usar un gris/azul sólido */
+}
+.badge.psychic { background-color: #f366b9; }
+
+/* Responsive para móvil */
+@media (max-width: 768px) {
+    .pokedex-container {
+        flex-direction: column;
+    }
+}
