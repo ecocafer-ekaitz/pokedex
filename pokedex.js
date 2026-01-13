@@ -1,33 +1,46 @@
-// MODELOA
+let pokedex = [];
+let pokemon;
 
-let pokemon = {
-    "id": 4,
-    "name": "Charmander",
-    "description": "La llama de la punta de su cola indica su salud. Si está sano, arderá con intensidad.",
-    "image": "charmander.png",
-    "altura": 0.6,
-    "categoria": "Lagarto",
-    "peso": 8.5,
-    "habilidad": "Mar Llamas",
-    "types": ["fuego"],
-    "debilidades": ["agua", "tierra", "roca"],
-    "stats": {
-      "ps": 39,
-      "ataque": 52,
-      "defensa": 43,
-      "ataque_especial": 60,
-      "defensa_especial": 50,
-      "velocidad": 65
+async function init() {
+    try {
+        const response = await fetch("assets/pokedex.json");
+        pokedex = await response.json();
+        pokemon = pokedex[0];
+        view();
+    } catch (error) {
+        console.error(error);
     }
-  };
+}
 
+function view() {
+    pokemonView();
+    listaView();
+}
 
-/// VISTA
+function listaView() {
+    const listContainer = document.getElementById("pokedex-list");
+    if (!listContainer) return;
 
-function pokemonView(){
+    listContainer.innerHTML = `
+        <div class="pokemon-buttons">
+            ${pokedex.map((poke, index) => `
+                <button class="pokemon-btn" onclick="selectPokemon(${index})">
+                    ${poke.name}
+                </button>
+            `).join("")}
+        </div>`;
+}
 
-    document.getElementById("pokemon-view").innerHTML = `
-    
+function selectPokemon(index) {
+    pokemon = pokedex[index];
+    pokemonView();
+}
+
+function pokemonView() {
+    const viewContainer = document.getElementById("pokemon-view");
+    if (!viewContainer) return;
+
+    viewContainer.innerHTML = `
     <div class="left-column">
         <div class="pokemon-image-wrapper">
             <img src="assets/images/${pokemon.image}" alt="${pokemon.name}" class="pokemon-img">
@@ -36,60 +49,18 @@ function pokemonView(){
         <div class="stats-card">
             <h3>Puntos de base</h3>
             <div class="chart-container">
-                <div class="stat-col">
-                    <div class="bar-track">
-                        <div class="bar-fill" style="height: ${pokemon.stats.ps}%;"></div>
-                        <div class="bar-grid"></div> </div>
-                    <span class="label">PS</span>
-                </div>
-
-                <div class="stat-col">
-                    <div class="bar-track">
-                        <div class="bar-fill" style="height: ${pokemon.stats.ataque}%;"></div>
-                        <div class="bar-grid"></div>
-                    </div>
-                    <span class="label">Ataque</span>
-                </div>
-
-                <div class="stat-col">
-                    <div class="bar-track">
-                        <div class="bar-fill" style="height: ${pokemon.stats.defensa}%;"></div>
-                        <div class="bar-grid"></div>
-                    </div>
-                    <span class="label">Defensa</span>
-                </div>
-
-                <div class="stat-col">
-                    <div class="bar-track">
-                        <div class="bar-fill" style="height: ${pokemon.stats.ataque_especial}%;"></div>
-                        <div class="bar-grid"></div>
-                    </div>
-                    <span class="label">Ataque Especial</span>
-                </div>
-
-                <div class="stat-col">
-                    <div class="bar-track">
-                        <div class="bar-fill" style="height: ${pokemon.stats.defensa_especial}%;"></div>
-                        <div class="bar-grid"></div>
-                    </div>
-                    <span class="label">Defensa Especial</span>
-                </div>
-
-                <div class="stat-col">
-                    <div class="bar-track">
-                        <div class="bar-fill" style="height: ${pokemon.stats.velocidad}%;"></div>
-                        <div class="bar-grid"></div>
-                    </div>
-                    <span class="label">Velocidad</span>
-                </div>
+                ${renderStat("PS", pokemon.stats.ps)}
+                ${renderStat("Ataque", pokemon.stats.ataque)}
+                ${renderStat("Defensa", pokemon.stats.defensa)}
+                ${renderStat("At. Especial", pokemon.stats.ataque_especial)}
+                ${renderStat("Def. Especial", pokemon.stats.defensa_especial)}
+                ${renderStat("Velocidad", pokemon.stats.velocidad)}
             </div>
         </div>
     </div>
 
     <div class="right-column">
-        <p class="description">
-            ${pokemon.description}
-        </p>
+        <p class="description">${pokemon.description}</p>
 
         <div class="info-box">
             <div class="info-row">
@@ -113,40 +84,33 @@ function pokemonView(){
                     <span class="info-value">${pokemon.habilidad} <span class="question">?</span></span>
                 </div>
             </div>
-
-            <div class="info-row">
-                <div class="info-item">
-                    <span class="info-label">Sexo</span>
-                    <span class="info-value sex-icons">
-                        <span class="male">&#9794;</span>
-                        <span class="female">&#9792;</span>
-                    </span>
-                </div>
-            </div>
         </div>
 
         <div class="type-section">
             <h3>Tipo</h3>
-            <div class="badges">
-                ${vistaTipos(pokemon.types)}
-            </div>
+            <div class="badges">${vistaTipos(pokemon.types)}</div>
         </div>
 
         <div class="weakness-section">
             <h3>Debilidad</h3>
-            <div class="badges">
-                ${vistaTipos(pokemon.debilidades)}
-            </div>
+            <div class="badges">${vistaTipos(pokemon.debilidades)}</div>
         </div>
-    </div>
-
-    `
-    
+    </div>`;
 }
 
-// Deitu vista lehenengo aldiz
-pokemonView()
-
-function vistaTipos(types){
-   return types.map(tipo => `<span class="badge ${tipo}">${tipo}</span>`).join("")
+function vistaTipos(types) {
+    return types.map(tipo => `<span class="badge ${tipo.toLowerCase()}">${tipo}</span>`).join("");
 }
+
+function renderStat(label, value) {
+    return `
+    <div class="stat-col">
+        <div class="bar-track">
+            <div class="bar-fill" style="height: ${value}%;"></div>
+            <div class="bar-grid"></div>
+        </div>
+        <span class="label">${label}</span>
+    </div>`;
+}
+
+init();
