@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokédex Interactiva</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="pokedex-wrapper">
+        <div class="sidebar">
+            <div class="search-container">
+                <input type="text" id="buscador" placeholder="Buscar Pokémon">
+            </div>
+            
+            <div id="pokedex-list">
+                <div class="pokemon-buttons">
+                    <button class="pokemon-btn active" data-id="1">Charmander</button>
+                    </div>
+            </div>
+        </div>
+
+        <div class="pokedex-container" id="pokemon-view">
+            </div>
+    </div>
+
+    <script src="pokedex.js"></script>
+</body>
+</html>
